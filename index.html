@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -55,6 +56,12 @@
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body.dark {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
         }
         
         .glass-card {
@@ -62,6 +69,12 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+        
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .gradient-primary {
@@ -158,28 +171,34 @@
         .countdown-bar {
             animation: countdown 5s linear forwards;
         }
+        
+        /* Taka symbol styling */
+        .taka-symbol {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
     <div id="app" class="min-h-screen pb-20 max-w-md mx-auto">
         <!-- Header -->
-        <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200 py-4 px-6 shadow-sm">
+        <header class="sticky top-0 z-40 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 py-4 px-6 shadow-sm">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-full gradient-primary flex items-center justify-center">
                         <i class="fas fa-coins text-white"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-800">Daily Earning</h1>
-                        <p class="text-xs text-gray-500" id="pageTitle">Earn money online</p>
+                        <h1 class="text-xl font-bold text-gray-800 dark:text-white">Daily Earning</h1>
+                        <p class="text-xs text-gray-500 dark:text-gray-300" id="pageTitle">Earn money online</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <button id="themeToggle" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition">
-                        <i class="fas fa-moon text-gray-600"></i>
+                    <button id="themeToggle" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-moon text-gray-600 dark:text-yellow-400"></i>
                     </button>
-                    <button id="refreshBtn" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center hover:bg-blue-200 transition">
-                        <i class="fas fa-sync-alt text-blue-600"></i>
+                    <button id="refreshBtn" class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center hover:bg-blue-200 dark:hover:bg-blue-700 transition">
+                        <i class="fas fa-sync-alt text-blue-600 dark:text-blue-300"></i>
                     </button>
                 </div>
             </div>
@@ -194,8 +213,9 @@
                     <div class="flex justify-between items-start mb-6">
                         <div>
                             <p class="text-sm opacity-90">Total Balance</p>
-                            <h2 id="balanceAmount" class="text-4xl font-bold mt-1">125 <span class="text-2xl">coins</span></h2>
-                            <p class="text-sm opacity-90 mt-2">≈ $0.25</p>
+                            <h2 id="balanceAmount" class="text-4xl font-bold mt-1">
+                                <span class="taka-symbol text-3xl">৳</span> 2406 
+                            </h2>
                         </div>
                         <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
                             <i class="fas fa-wallet text-2xl"></i>
@@ -210,40 +230,36 @@
                             <i class="fas fa-dollar-sign mr-2"></i> Withdraw
                         </button>
                     </div>
-                    
-                    <div class="text-center">
-                        <p class="text-sm opacity-90">Referral ID: <span id="userId" class="font-bold">USER5812</span></p>
-                    </div>
                 </div>
 
                 <!-- Quick Actions -->
                 <div class="grid grid-cols-4 gap-3 mb-6">
                     <button class="quick-action" data-action="watch-ads">
-                        <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-2">
-                            <i class="fas fa-ad text-blue-600 text-xl"></i>
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-2">
+                            <i class="fas fa-ad text-blue-600 dark:text-blue-300 text-xl"></i>
                         </div>
-                        <span class="text-xs font-medium">Watch Ads</span>
+                        <span class="text-xs font-medium text-gray-800 dark:text-gray-200">Watch Ads</span>
                     </button>
                     
                     <button class="quick-action" data-action="watch-videos">
-                        <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center mb-2">
-                            <i class="fas fa-play-circle text-red-600 text-xl"></i>
+                        <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900 flex items-center justify-center mb-2">
+                            <i class="fas fa-play-circle text-red-600 dark:text-red-300 text-xl"></i>
                         </div>
-                        <span class="text-xs font-medium">Videos</span>
+                        <span class="text-xs font-medium text-gray-800 dark:text-gray-200">Videos</span>
                     </button>
                     
                     <button class="quick-action" data-action="daily-bonus">
-                        <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-2">
-                            <i class="fas fa-gift text-green-600 text-xl"></i>
+                        <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900 flex items-center justify-center mb-2">
+                            <i class="fas fa-gift text-green-600 dark:text-green-300 text-xl"></i>
                         </div>
-                        <span class="text-xs font-medium">Daily Bonus</span>
+                        <span class="text-xs font-medium text-gray-800 dark:text-gray-200">Daily Bonus</span>
                     </button>
                     
                     <button class="quick-action" data-action="invite-friends">
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-2">
-                            <i class="fas fa-user-plus text-purple-600 text-xl"></i>
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900 flex items-center justify-center mb-2">
+                            <i class="fas fa-user-plus text-purple-600 dark:text-purple-300 text-xl"></i>
                         </div>
-                        <span class="text-xs font-medium">Invite</span>
+                        <span class="text-xs font-medium text-gray-800 dark:text-gray-200">Invite</span>
                     </button>
                 </div>
 
@@ -260,7 +276,7 @@
                     <div class="bg-white/20 rounded-xl p-4 mb-4">
                         <p class="text-sm mb-2">Your Referral Link</p>
                         <div class="flex items-center">
-                            <input id="referralLink" type="text" readonly value="https://t.me/Daily_Emre_Bot?start=5812" class="flex-1 bg-transparent text-white text-sm outline-none">
+                            <input id="referralLink" type="text" readonly class="flex-1 bg-transparent text-white text-sm outline-none">
                             <button id="copyLinkBtn" class="ml-2 w-10 h-10 rounded-full bg-white/30 flex items-center justify-center hover:bg-white/40 transition">
                                 <i class="fas fa-copy"></i>
                             </button>
@@ -277,50 +293,34 @@
                     </div>
                 </div>
 
-                <!-- Tasks Section -->
-                <div class="glass-card rounded-2xl p-6 mb-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-gray-800">Daily Tasks</h3>
-                        <span class="text-sm text-blue-600 font-medium">5/10 Completed</span>
-                    </div>
-                    
-                    <div id="tasksList" class="space-y-4">
-                        <!-- Tasks will be loaded here by JavaScript -->
-                    </div>
-                    
-                    <button id="viewAllTasksBtn" class="w-full mt-6 border-2 border-blue-600 text-blue-600 font-semibold py-3 rounded-xl hover:bg-blue-50 transition active:scale-95">
-                        View All Tasks
-                    </button>
-                </div>
-
                 <!-- Stats Section -->
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div class="glass-card rounded-2xl p-5">
                         <div class="flex items-center mb-3">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-fire text-green-600"></i>
+                            <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-fire text-green-600 dark:text-green-300"></i>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500">Daily Streak</p>
-                                <p class="text-xl font-bold text-gray-800">5 days</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">Daily Streak</p>
+                                <p class="text-xl font-bold text-gray-800 dark:text-white">5 days</p>
                             </div>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                             <div class="bg-green-500 h-2 rounded-full" style="width: 50%"></div>
                         </div>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-5">
                         <div class="flex items-center mb-3">
-                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-users text-purple-600"></i>
+                            <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-3">
+                                <i class="fas fa-users text-purple-600 dark:text-purple-300"></i>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500">Referrals</p>
-                                <p class="text-xl font-bold text-gray-800">3 friends</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">Referrals</p>
+                                <p class="text-xl font-bold text-gray-800 dark:text-white">3 friends</p>
                             </div>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                             <div class="bg-purple-500 h-2 rounded-full" style="width: 30%"></div>
                         </div>
                     </div>
@@ -330,62 +330,63 @@
             <!-- Deposit Page -->
             <div id="depositPage" class="page">
                 <div class="flex items-center mb-6">
-                    <button id="backFromDeposit" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3 hover:bg-gray-200 transition">
-                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    <button id="backFromDeposit" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-300"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">Deposit Coins</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Deposit Coins</h2>
                 </div>
                 
                 <div class="space-y-6">
                     <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white">
                         <p class="text-sm mb-1">Current Balance</p>
-                        <p class="text-3xl font-bold" id="depositBalance">125 <span class="text-xl">coins</span></p>
-                        <p class="text-sm mt-2">≈ $0.25</p>
+                        <p class="text-3xl font-bold" id="depositBalance">
+                            <span class="taka-symbol text-2xl">৳</span> 2406
+                        </p>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <p class="text-gray-600 mb-4">Add coins to your account to start earning more.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Add coins to your account to start earning more.</p>
                         
                         <div class="grid grid-cols-2 gap-3 mb-6">
-                            <button class="deposit-option p-4 border-2 border-blue-200 rounded-xl hover:border-blue-500 transition text-center">
-                                <p class="font-bold text-lg">100</p>
-                                <p class="text-sm text-gray-500">coins</p>
-                                <p class="text-xs mt-2 text-blue-600">$0.10</p>
+                            <button class="deposit-option p-4 border-2 border-blue-200 dark:border-blue-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition text-center">
+                                <p class="font-bold text-lg text-gray-800 dark:text-white">100</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">coins</p>
+                                <p class="text-xs mt-2 text-blue-600 dark:text-blue-400">৳ 10</p>
                             </button>
                             
-                            <button class="deposit-option p-4 border-2 border-blue-200 rounded-xl hover:border-blue-500 transition text-center">
-                                <p class="font-bold text-lg">500</p>
-                                <p class="text-sm text-gray-500">coins</p>
-                                <p class="text-xs mt-2 text-blue-600">$0.50</p>
+                            <button class="deposit-option p-4 border-2 border-blue-200 dark:border-blue-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition text-center">
+                                <p class="font-bold text-lg text-gray-800 dark:text-white">500</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">coins</p>
+                                <p class="text-xs mt-2 text-blue-600 dark:text-blue-400">৳ 50</p>
                             </button>
                             
-                            <button class="deposit-option p-4 border-2 border-blue-200 rounded-xl hover:border-blue-500 transition text-center">
-                                <p class="font-bold text-lg">1000</p>
-                                <p class="text-sm text-gray-500">coins</p>
-                                <p class="text-xs mt-2 text-blue-600">$1.00</p>
+                            <button class="deposit-option p-4 border-2 border-blue-200 dark:border-blue-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition text-center">
+                                <p class="font-bold text-lg text-gray-800 dark:text-white">1000</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">coins</p>
+                                <p class="text-xs mt-2 text-blue-600 dark:text-blue-400">৳ 100</p>
                             </button>
                             
-                            <button class="deposit-option p-4 border-2 border-blue-200 rounded-xl hover:border-blue-500 transition text-center">
-                                <p class="font-bold text-lg">5000</p>
-                                <p class="text-sm text-gray-500">coins</p>
-                                <p class="text-xs mt-2 text-blue-600">$5.00</p>
+                            <button class="deposit-option p-4 border-2 border-blue-200 dark:border-blue-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition text-center">
+                                <p class="font-bold text-lg text-gray-800 dark:text-white">5000</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">coins</p>
+                                <p class="text-xs mt-2 text-blue-600 dark:text-blue-400">৳ 500</p>
                             </button>
                         </div>
                         
-                        <div class="pt-4 border-t">
-                            <p class="text-sm text-gray-500 mb-3">Payment Methods:</p>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-sm text-gray-500 dark:text-gray-300 mb-3">Payment Methods:</p>
                             <div class="flex space-x-3">
-                                <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                                    <i class="fab fa-paypal text-blue-600"></i>
+                                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                                    <i class="fab fa-paypal text-blue-600 dark:text-blue-300"></i>
                                 </div>
-                                <div class="w-12 h-12 rounded-xl bg-yellow-100 flex items-center justify-center">
-                                    <i class="fab fa-cc-visa text-yellow-600"></i>
+                                <div class="w-12 h-12 rounded-xl bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center">
+                                    <i class="fab fa-cc-visa text-yellow-600 dark:text-yellow-300"></i>
                                 </div>
-                                <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                                    <i class="fab fa-cc-mastercard text-green-600"></i>
+                                <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                                    <i class="fab fa-cc-mastercard text-green-600 dark:text-green-300"></i>
                                 </div>
-                                <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
-                                    <i class="fab fa-bitcoin text-purple-600"></i>
+                                <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+                                    <i class="fab fa-bitcoin text-purple-600 dark:text-purple-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -400,28 +401,29 @@
             <!-- Withdraw Page -->
             <div id="withdrawPage" class="page">
                 <div class="flex items-center mb-6">
-                    <button id="backFromWithdraw" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3 hover:bg-gray-200 transition">
-                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    <button id="backFromWithdraw" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-300"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">Withdraw Earnings</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Withdraw Earnings</h2>
                 </div>
                 
                 <div class="space-y-6">
                     <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-5 text-white">
                         <p class="text-sm mb-1">Available Balance</p>
-                        <p class="text-3xl font-bold" id="withdrawBalance">125 <span class="text-xl">coins</span></p>
-                        <p class="text-sm mt-2">≈ $0.25</p>
+                        <p class="text-3xl font-bold" id="withdrawBalance">
+                            <span class="taka-symbol text-2xl">৳</span> 2406
+                        </p>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <p class="text-gray-600 mb-4">Select withdrawal method:</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Select withdrawal method:</p>
                         
                         <div class="space-y-4 mb-6" id="withdrawalMethods">
                             <!-- Withdrawal methods will be loaded here -->
                         </div>
                         
-                        <div class="pt-4 border-t">
-                            <p class="text-sm text-gray-500 mb-3">Withdrawal takes 24-48 hours to process.</p>
+                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <p class="text-sm text-gray-500 dark:text-gray-300 mb-3">Withdrawal takes 24-48 hours to process.</p>
                             <button class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed" id="requestWithdrawalBtn">
                                 Request Withdrawal
                             </button>
@@ -433,10 +435,10 @@
             <!-- Tasks Page -->
             <div id="tasksPage" class="page">
                 <div class="flex items-center mb-6">
-                    <button id="backFromTasks" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3 hover:bg-gray-200 transition">
-                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    <button id="backFromTasks" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-300"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">All Tasks</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">All Tasks</h2>
                 </div>
                 
                 <div class="glass-card rounded-2xl p-6 mb-6 gradient-primary text-white">
@@ -447,7 +449,9 @@
                         </div>
                         <div class="text-right">
                             <p class="text-sm opacity-90">Total Earned</p>
-                            <p class="text-2xl font-bold">+125 coins</p>
+                            <p class="text-2xl font-bold">
+                                <span class="taka-symbol text-xl">৳</span> 125
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -460,26 +464,26 @@
             <!-- Watch Ads Page -->
             <div id="watchAdsPage" class="page">
                 <div class="flex items-center mb-6">
-                    <button id="backFromAds" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3 hover:bg-gray-200 transition">
-                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    <button id="backFromAds" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-300"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">Watch Ads</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Watch Ads</h2>
                 </div>
                 
                 <div class="space-y-6">
                     <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white text-center">
                         <i class="fas fa-ad text-4xl mb-4"></i>
                         <h3 class="text-xl font-bold">Watch Ad to Earn</h3>
-                        <p class="opacity-90 mt-2">Watch a short ad to earn 10 coins</p>
+                        <p class="opacity-90 mt-2">Watch a short ad to earn <span class="taka-symbol">৳</span>10</p>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <div class="border rounded-xl p-4 mb-6">
+                        <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-4 mb-6">
                             <div class="flex justify-between items-center mb-3">
-                                <span class="text-sm text-gray-500">Ad will play in:</span>
-                                <span id="countdown" class="font-bold text-blue-600">5s</span>
+                                <span class="text-sm text-gray-500 dark:text-gray-300">Ad will play in:</span>
+                                <span id="countdown" class="font-bold text-blue-600 dark:text-blue-400">5s</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                 <div id="progressBar" class="bg-blue-500 h-2 rounded-full" style="width: 0%"></div>
                             </div>
                         </div>
@@ -488,52 +492,52 @@
                             <button id="startAdBtn" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition">
                                 <i class="fas fa-play mr-2"></i> Start Watching Ad
                             </button>
-                            <button id="skipAdBtn" class="w-full border-2 border-gray-300 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-50 transition">
+                            <button id="skipAdBtn" class="w-full border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                                 Skip for Now
                             </button>
                         </div>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <h3 class="font-bold text-gray-800 mb-4">Available Ads</h3>
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-4">Available Ads</h3>
                         <div class="space-y-3">
-                            <div class="flex items-center justify-between p-4 border rounded-xl">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-ad text-blue-600"></i>
+                                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-ad text-blue-600 dark:text-blue-300"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-800">Short Ad (30s)</h4>
-                                        <p class="text-sm text-gray-500">Earn 10 coins</p>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Short Ad (30s)</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-300">Earn <span class="taka-symbol">৳</span>10</p>
                                     </div>
                                 </div>
-                                <span class="font-bold text-green-600">+10</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>10</span>
                             </div>
                             
-                            <div class="flex items-center justify-between p-4 border rounded-xl">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-ad text-green-600"></i>
+                                    <div class="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-ad text-green-600 dark:text-green-300"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-800">Medium Ad (60s)</h4>
-                                        <p class="text-sm text-gray-500">Earn 20 coins</p>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Medium Ad (60s)</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-300">Earn <span class="taka-symbol">৳</span>20</p>
                                     </div>
                                 </div>
-                                <span class="font-bold text-green-600">+20</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>20</span>
                             </div>
                             
-                            <div class="flex items-center justify-between p-4 border rounded-xl">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-ad text-purple-600"></i>
+                                    <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-ad text-purple-600 dark:text-purple-300"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-800">Long Ad (90s)</h4>
-                                        <p class="text-sm text-gray-500">Earn 30 coins</p>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Long Ad (90s)</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-300">Earn <span class="taka-symbol">৳</span>30</p>
                                     </div>
                                 </div>
-                                <span class="font-bold text-green-600">+30</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>30</span>
                             </div>
                         </div>
                     </div>
@@ -543,17 +547,17 @@
             <!-- Watch Videos Page -->
             <div id="watchVideosPage" class="page">
                 <div class="flex items-center mb-6">
-                    <button id="backFromVideos" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3 hover:bg-gray-200 transition">
-                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    <button id="backFromVideos" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-300"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">Watch Videos</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Watch Videos</h2>
                 </div>
                 
                 <div class="space-y-6">
                     <div class="bg-gradient-to-r from-red-500 to-pink-600 rounded-xl p-6 text-white text-center">
                         <i class="fas fa-play-circle text-4xl mb-4"></i>
                         <h3 class="text-xl font-bold">Watch Video to Earn</h3>
-                        <p class="opacity-90 mt-2">Watch videos to earn coins</p>
+                        <p class="opacity-90 mt-2">Watch videos to earn money</p>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
@@ -568,50 +572,50 @@
                             <button id="startVideoBtn" class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition">
                                 <i class="fas fa-play mr-2"></i> Start Video
                             </button>
-                            <p class="text-sm text-gray-500 text-center">Video will play automatically</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300 text-center">Video will play automatically</p>
                         </div>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <h3 class="font-bold text-gray-800 mb-4">Available Videos</h3>
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-4">Available Videos</h3>
                         <div class="space-y-3">
-                            <div class="flex items-center justify-between p-4 border rounded-xl">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-play-circle text-red-600"></i>
+                                    <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-play-circle text-red-600 dark:text-red-300"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-800">Short Video (1min)</h4>
-                                        <p class="text-sm text-gray-500">Earn 15 coins</p>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Short Video (1min)</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-300">Earn <span class="taka-symbol">৳</span>15</p>
                                     </div>
                                 </div>
-                                <span class="font-bold text-green-600">+15</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>15</span>
                             </div>
                             
-                            <div class="flex items-center justify-between p-4 border rounded-xl">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-play-circle text-orange-600"></i>
+                                    <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-play-circle text-orange-600 dark:text-orange-300"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-800">Medium Video (3min)</h4>
-                                        <p class="text-sm text-gray-500">Earn 30 coins</p>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Medium Video (3min)</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-300">Earn <span class="taka-symbol">৳</span>30</p>
                                     </div>
                                 </div>
-                                <span class="font-bold text-green-600">+30</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>30</span>
                             </div>
                             
-                            <div class="flex items-center justify-between p-4 border rounded-xl">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-play-circle text-purple-600"></i>
+                                    <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-play-circle text-purple-600 dark:text-purple-300"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-800">Long Video (5min)</h4>
-                                        <p class="text-sm text-gray-500">Earn 50 coins</p>
+                                        <h4 class="font-medium text-gray-800 dark:text-white">Long Video (5min)</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-300">Earn <span class="taka-symbol">৳</span>50</p>
                                     </div>
                                 </div>
-                                <span class="font-bold text-green-600">+50</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>50</span>
                             </div>
                         </div>
                     </div>
@@ -621,10 +625,10 @@
             <!-- Referral Stats Page -->
             <div id="referralStatsPage" class="page">
                 <div class="flex items-center mb-6">
-                    <button id="backFromReferralStats" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3 hover:bg-gray-200 transition">
-                        <i class="fas fa-arrow-left text-gray-600"></i>
+                    <button id="backFromReferralStats" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                        <i class="fas fa-arrow-left text-gray-600 dark:text-gray-300"></i>
                     </button>
-                    <h2 class="text-2xl font-bold text-gray-800">Referral Statistics</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Referral Statistics</h2>
                 </div>
                 
                 <div class="space-y-6">
@@ -638,73 +642,81 @@
                                 <p class="text-sm opacity-90">Friends Joined</p>
                             </div>
                             <div class="text-center">
-                                <p class="text-3xl font-bold" id="referralEarnings">150</p>
-                                <p class="text-sm opacity-90">Coins Earned</p>
+                                <p class="text-3xl font-bold" id="referralEarnings">
+                                    <span class="taka-symbol text-2xl">৳</span>150
+                                </p>
+                                <p class="text-sm opacity-90">Money Earned</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <h3 class="font-bold text-gray-800 mb-4">Referral Rewards</h3>
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-4">Referral Rewards</h3>
                         
                         <div class="space-y-4">
-                            <div class="p-4 border rounded-xl">
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-gray-800">Level 1</span>
-                                    <span class="font-bold text-green-600">+50 coins</span>
+                                    <span class="font-medium text-gray-800 dark:text-white">Level 1</span>
+                                    <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>50</span>
                                 </div>
-                                <p class="text-sm text-gray-500">When a friend joins using your link</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">When a friend joins using your link</p>
                             </div>
                             
-                            <div class="p-4 border rounded-xl">
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-gray-800">Level 2</span>
-                                    <span class="font-bold text-green-600">+25 coins</span>
+                                    <span class="font-medium text-gray-800 dark:text-white">Level 2</span>
+                                    <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>25</span>
                                 </div>
-                                <p class="text-sm text-gray-500">When your friend completes first task</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">When your friend completes first task</p>
                             </div>
                             
-                            <div class="p-4 border rounded-xl">
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-xl">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-gray-800">Bonus Reward</span>
-                                    <span class="font-bold text-green-600">+100 coins</span>
+                                    <span class="font-medium text-gray-800 dark:text-white">Bonus Reward</span>
+                                    <span class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>100</span>
                                 </div>
-                                <p class="text-sm text-gray-500">When you refer 10 friends</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">When you refer 10 friends</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="glass-card rounded-2xl p-6">
-                        <h4 class="font-bold text-gray-800 mb-3">Top Referrers</h4>
+                        <h4 class="font-bold text-gray-800 dark:text-white mb-3">Top Referrers</h4>
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
-                                        <i class="fas fa-crown text-yellow-600"></i>
+                                    <div class="w-8 h-8 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mr-3">
+                                        <i class="fas fa-crown text-yellow-600 dark:text-yellow-300"></i>
                                     </div>
-                                    <span class="font-medium">TopEarner123</span>
+                                    <span class="font-medium text-gray-800 dark:text-white">TopEarner123</span>
                                 </div>
-                                <span class="font-bold text-green-600">1,250 coins</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">
+                                    <span class="taka-symbol">৳</span>1,250
+                                </span>
                             </div>
                             
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-                                        <span class="font-bold">2</span>
+                                    <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3">
+                                        <span class="font-bold text-gray-800 dark:text-white">2</span>
                                     </div>
-                                    <span class="font-medium">MoneyMaker456</span>
+                                    <span class="font-medium text-gray-800 dark:text-white">MoneyMaker456</span>
                                 </div>
-                                <span class="font-bold text-green-600">980 coins</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">
+                                    <span class="taka-symbol">৳</span>980
+                                </span>
                             </div>
                             
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-                                        <span class="font-bold">3</span>
+                                    <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-3">
+                                        <span class="font-bold text-gray-800 dark:text-white">3</span>
                                     </div>
-                                    <span class="font-medium">DailyEarner789</span>
+                                    <span class="font-medium text-gray-800 dark:text-white">DailyEarner789</span>
                                 </div>
-                                <span class="font-bold text-green-600">750 coins</span>
+                                <span class="font-bold text-green-600 dark:text-green-400">
+                                    <span class="taka-symbol">৳</span>750
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -713,7 +725,7 @@
         </main>
 
         <!-- Bottom Navigation -->
-        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 py-3 px-6">
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-3 px-6">
             <div class="flex justify-between items-center">
                 <button class="nav-btn active" data-page="home">
                     <i class="fas fa-home text-lg mb-1"></i>
@@ -758,12 +770,12 @@
     <script>
         // App Data
         const appData = {
-            balance: 125,
+            balance: 2406,
             streak: 5,
             referrals: 3,
             tasksCompleted: 5,
             userId: 'USER5812',
-            referralLink: 'https://t.me/Daily_Emre_Bot?start=5812',
+            referralLink: 'https://daily-earne.vercel.app',
             tasks: [
                 { id: 1, title: 'Watch Short Ad', description: 'Watch a 30-second ad', reward: 10, icon: 'fa-ad', completed: true },
                 { id: 2, title: 'Watch Video', description: 'Watch a 1-minute video', reward: 15, icon: 'fa-play-circle', completed: true },
@@ -775,17 +787,16 @@
                 { id: 8, title: 'Invite Friend', description: 'Invite a friend to join', reward: 50, icon: 'fa-user-plus', completed: false }
             ],
             withdrawalMethods: [
-                { id: 1, name: 'PayPal', minAmount: 1000, rate: '1000 coins = $10', icon: 'fa-paypal', color: 'text-blue-600' },
-                { id: 2, name: 'Amazon Gift Card', minAmount: 500, rate: '500 coins = $5', icon: 'fa-amazon', color: 'text-yellow-600' },
-                { id: 3, name: 'Mobile Recharge', minAmount: 300, rate: '300 coins = $3', icon: 'fa-mobile-alt', color: 'text-green-600' },
-                { id: 4, name: 'Bitcoin', minAmount: 2000, rate: '2000 coins = $20', icon: 'fa-bitcoin', color: 'text-orange-600' }
+                { id: 1, name: 'bKash', minAmount: 100, rate: '100 taka = ৳100', icon: 'fa-mobile-alt', color: 'text-red-600' },
+                { id: 2, name: 'Nagad', minAmount: 100, rate: '100 taka = ৳100', icon: 'fa-wallet', color: 'text-green-600' },
+                { id: 3, name: 'Bank Transfer', minAmount: 500, rate: '500 taka = ৳500', icon: 'fa-university', color: 'text-blue-600' },
+                { id: 4, name: 'Rocket', minAmount: 100, rate: '100 taka = ৳100', icon: 'fa-rocket', color: 'text-purple-600' }
             ]
         };
 
         // DOM Elements
         const elements = {
             balanceAmount: document.getElementById('balanceAmount'),
-            userId: document.getElementById('userId'),
             referralLink: document.getElementById('referralLink'),
             tasksList: document.getElementById('tasksList'),
             allTasksList: document.getElementById('allTasksList'),
@@ -807,11 +818,8 @@
 
         // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
-            loadTasks();
-            loadAllTasks();
-            loadWithdrawalMethods();
-            setupEventListeners();
-            showNotification('Welcome to Daily Earning! Start earning now.', 'success');
+            // Generate random referral link with user ID
+            generateRandomReferralLink();
             
             // Load saved data from localStorage
             const savedBalance = localStorage.getItem('dailyEarningBalance');
@@ -819,34 +827,45 @@
                 appData.balance = parseInt(savedBalance);
                 updateBalance();
             }
+            
+            setupEventListeners();
+            showNotification('Welcome to Daily Earning! Start earning now.', 'success');
+            
+            // Set initial theme based on localStorage or system preference
+            const savedTheme = localStorage.getItem('dailyEarningTheme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.body.classList.add('dark');
+                updateThemeIcon(true);
+            }
         });
 
-        // Load Tasks for Home Page
-        function loadTasks() {
-            elements.tasksList.innerHTML = '';
-            appData.tasks.slice(0, 4).forEach(task => {
-                const taskElement = document.createElement('div');
-                taskElement.className = 'flex items-center justify-between p-4 rounded-xl border border-gray-200 hover:border-blue-300 transition';
-                taskElement.innerHTML = `
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-xl ${task.completed ? 'bg-green-100' : 'bg-blue-100'} flex items-center justify-center mr-4">
-                            <i class="fas ${task.icon} ${task.completed ? 'text-green-600' : 'text-blue-600'}"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800">${task.title}</h4>
-                            <p class="text-sm text-gray-500">${task.description}</p>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <p class="font-bold text-green-600">+${task.reward}</p>
-                        <button class="task-complete-btn mt-2 px-4 py-1 rounded-full text-sm font-medium ${task.completed ? 'bg-gray-100 text-gray-500 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700'}" 
-                                data-id="${task.id}" ${task.completed ? 'disabled' : ''}>
-                            ${task.completed ? 'Completed' : 'Start'}
-                        </button>
-                    </div>
-                `;
-                elements.tasksList.appendChild(taskElement);
-            });
+        // Generate Random Referral Link
+        function generateRandomReferralLink() {
+            const baseUrl = 'https://daily-earne.vercel.app';
+            const randomId = Math.random().toString(36).substring(2, 10).toUpperCase();
+            const referralCode = `ref_${randomId}`;
+            appData.referralLink = `${baseUrl}/?ref=${referralCode}`;
+            
+            // Update referral link input
+            if (elements.referralLink) {
+                elements.referralLink.value = appData.referralLink;
+            }
+        }
+
+        // Update Theme Icon
+        function updateThemeIcon(isDark) {
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (isDark) {
+                icon.className = 'fas fa-sun text-yellow-400';
+                themeToggle.title = 'Switch to light mode';
+            } else {
+                icon.className = 'fas fa-moon text-gray-600';
+                themeToggle.title = 'Switch to dark mode';
+            }
         }
 
         // Load All Tasks for Tasks Page
@@ -856,20 +875,20 @@
             
             appData.tasks.forEach(task => {
                 const taskElement = document.createElement('div');
-                taskElement.className = `flex items-center justify-between p-4 rounded-xl border ${task.completed ? 'bg-green-50 border-green-200' : 'border-gray-200 hover:border-blue-300'} transition`;
+                taskElement.className = `flex items-center justify-between p-4 rounded-xl border ${task.completed ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800' : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'} transition`;
                 taskElement.innerHTML = `
                     <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-xl ${task.completed ? 'bg-green-100' : 'bg-blue-100'} flex items-center justify-center mr-3">
-                            <i class="fas ${task.icon} ${task.completed ? 'text-green-600' : 'text-blue-600'}"></i>
+                        <div class="w-10 h-10 rounded-xl ${task.completed ? 'bg-green-100 dark:bg-green-800' : 'bg-blue-100 dark:bg-blue-800'} flex items-center justify-center mr-3">
+                            <i class="fas ${task.icon} ${task.completed ? 'text-green-600 dark:text-green-300' : 'text-blue-600 dark:text-blue-300'}"></i>
                         </div>
                         <div>
-                            <h4 class="font-medium text-gray-800">${task.title}</h4>
-                            <p class="text-sm text-gray-500">${task.description}</p>
+                            <h4 class="font-medium text-gray-800 dark:text-white">${task.title}</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">${task.description}</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="font-bold text-green-600">+${task.reward}</p>
-                        <button class="all-task-complete-btn mt-2 px-3 py-1 rounded-full text-xs font-medium ${task.completed ? 'bg-gray-100 text-gray-500 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700'}" 
+                        <p class="font-bold text-green-600 dark:text-green-400">+<span class="taka-symbol">৳</span>${task.reward}</p>
+                        <button class="all-task-complete-btn mt-2 px-3 py-1 rounded-full text-xs font-medium ${task.completed ? 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-default' : 'bg-blue-600 dark:bg-blue-700 text-white hover:bg-blue-700 dark:hover:bg-blue-600'}" 
                                 data-id="${task.id}" ${task.completed ? 'disabled' : ''}>
                             ${task.completed ? '✓ Done' : 'Start'}
                         </button>
@@ -885,18 +904,18 @@
             
             appData.withdrawalMethods.forEach(method => {
                 const methodElement = document.createElement('div');
-                methodElement.className = 'withdraw-method p-4 border rounded-xl hover:border-blue-500 transition cursor-pointer';
+                methodElement.className = 'withdraw-method p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition cursor-pointer';
                 methodElement.setAttribute('data-id', method.id);
                 methodElement.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
-                            <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mr-4">
-                                <i class="fab ${method.icon} ${method.color} text-xl"></i>
+                            <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mr-4">
+                                <i class="fas ${method.icon} ${method.color} text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-800">${method.name}</h4>
-                                <p class="text-sm text-gray-500">${method.rate}</p>
-                                <p class="text-xs text-gray-500 mt-1">Min: ${method.minAmount} coins</p>
+                                <h4 class="font-bold text-gray-800 dark:text-white">${method.name}</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">${method.rate}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Min: <span class="taka-symbol">৳</span>${method.minAmount}</p>
                             </div>
                         </div>
                         <i class="fas fa-chevron-right text-gray-400"></i>
@@ -906,9 +925,9 @@
             });
             
             // Update withdraw button state
-            elements.requestWithdrawalBtn.disabled = appData.balance < 300;
-            if (appData.balance < 300) {
-                elements.requestWithdrawalBtn.textContent = `Need ${300 - appData.balance} more coins`;
+            elements.requestWithdrawalBtn.disabled = appData.balance < 100;
+            if (appData.balance < 100) {
+                elements.requestWithdrawalBtn.textContent = `Need <span class="taka-symbol">৳</span>${100 - appData.balance} more`;
             }
         }
 
@@ -924,11 +943,6 @@
 
             // Task Complete Buttons
             document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('task-complete-btn') && !e.target.disabled) {
-                    const taskId = parseInt(e.target.dataset.id);
-                    completeTask(taskId);
-                }
-                
                 if (e.target.classList.contains('all-task-complete-btn') && !e.target.disabled) {
                     const taskId = parseInt(e.target.dataset.id);
                     completeTask(taskId);
@@ -969,8 +983,21 @@
             // Withdraw Button
             document.getElementById('withdrawBtn').addEventListener('click', () => navigateToPage('withdraw'));
             
-            // View All Tasks Button
-            document.getElementById('viewAllTasksBtn').addEventListener('click', () => navigateToPage('tasks'));
+            // Start Earning Button - Navigate to Tasks Page
+            document.getElementById('startEarningBtn').addEventListener('click', () => {
+                // Navigate to Tasks page
+                navigateToPage('tasks');
+                
+                // Update nav button active state
+                document.querySelectorAll('.nav-btn').forEach(b => {
+                    b.classList.remove('active', 'tab-active');
+                    b.classList.add('text-gray-500');
+                });
+                document.querySelector('[data-page="tasks"]').classList.add('active', 'tab-active', 'text-blue-600');
+                
+                // Load tasks if not already loaded
+                loadAllTasks();
+            });
             
             // Referral Stats Button
             document.getElementById('referralStatsBtn').addEventListener('click', () => navigateToPage('referralStats'));
@@ -980,9 +1007,6 @@
             
             // Share Button
             document.getElementById('shareBtn').addEventListener('click', shareReferralLink);
-            
-            // Start Earning Button
-            document.getElementById('startEarningBtn').addEventListener('click', startEarning);
             
             // Daily Bonus Button
             document.querySelector('[data-action="daily-bonus"]').addEventListener('click', claimDailyBonus);
@@ -1015,7 +1039,7 @@
             document.addEventListener('click', function(e) {
                 if (e.target.closest('.deposit-option')) {
                     const amount = e.target.closest('.deposit-option').querySelector('p:nth-child(1)').textContent;
-                    showNotification(`Selected ${amount} coins for deposit`, 'info');
+                    showNotification(`Selected <span class="taka-symbol">৳</span>${amount} for deposit`, 'info');
                 }
             });
             
@@ -1030,7 +1054,7 @@
             
             // Request Withdrawal
             document.getElementById('requestWithdrawalBtn').addEventListener('click', function() {
-                if (appData.balance >= 300) {
+                if (appData.balance >= 100) {
                     showNotification('Withdrawal request sent! Funds will arrive in 24-48 hours.', 'success');
                 }
             });
@@ -1082,7 +1106,7 @@
                 // Update page title
                 const pageTitles = {
                     'home': 'Earn money online',
-                    'deposit': 'Deposit Coins',
+                    'deposit': 'Deposit Money',
                     'withdraw': 'Withdraw Earnings',
                     'tasks': 'All Tasks',
                     'watchAds': 'Watch Ads',
@@ -1094,13 +1118,15 @@
                 
                 // Update data on page if needed
                 if (page === 'deposit') {
-                    elements.depositBalance.textContent = `${appData.balance} coins`;
+                    elements.depositBalance.innerHTML = `<span class="taka-symbol text-2xl">৳</span> ${appData.balance}`;
                 } else if (page === 'withdraw') {
-                    elements.withdrawBalance.textContent = `${appData.balance} coins`;
+                    elements.withdrawBalance.innerHTML = `<span class="taka-symbol text-2xl">৳</span> ${appData.balance}`;
                     loadWithdrawalMethods();
                 } else if (page === 'referralStats') {
                     elements.referralCount.textContent = appData.referrals;
-                    elements.referralEarnings.textContent = appData.referrals * 50;
+                    elements.referralEarnings.innerHTML = `<span class="taka-symbol text-2xl">৳</span>${appData.referrals * 50}`;
+                } else if (page === 'tasks') {
+                    loadAllTasks();
                 }
             }
         }
@@ -1129,26 +1155,10 @@
                 appData.tasksCompleted++;
                 
                 updateBalance();
-                loadTasks();
                 saveToLocalStorage();
                 
-                showNotification(`Task completed! +${task.reward} coins earned.`, 'success');
+                showNotification(`Task completed! +<span class="taka-symbol">৳</span>${task.reward} earned.`, 'success');
             }
-        }
-
-        // Start Earning
-        function startEarning() {
-            const earnings = Math.floor(Math.random() * 10) + 5;
-            appData.balance += earnings;
-            updateBalance();
-            saveToLocalStorage();
-            
-            showNotification(`Earning started! +${earnings} coins added to your balance.`, 'success');
-            
-            // Simulate earning process
-            setTimeout(() => {
-                showNotification('Earning session completed! Check your balance.', 'info');
-            }, 2000);
         }
 
         // Copy Referral Link
@@ -1186,7 +1196,7 @@
             updateBalance();
             saveToLocalStorage();
             
-            showNotification(`Daily bonus claimed! +${bonus} coins. Streak: ${appData.streak} days`, 'success');
+            showNotification(`Daily bonus claimed! +<span class="taka-symbol">৳</span>${bonus}. Streak: ${appData.streak} days`, 'success');
         }
 
         // Start Ad Countdown
@@ -1210,7 +1220,7 @@
                     updateBalance();
                     saveToLocalStorage();
                     
-                    showNotification('Ad watched! +10 coins added to your balance.', 'success');
+                    showNotification('Ad watched! +<span class="taka-symbol">৳</span>10 added to your balance.', 'success');
                     
                     // Reset button
                     setTimeout(() => {
@@ -1235,7 +1245,7 @@
                 updateBalance();
                 saveToLocalStorage();
                 
-                showNotification('Video watched! +15 coins added to your balance.', 'success');
+                showNotification('Video watched! +<span class="taka-symbol">৳</span>15 added to your balance.', 'success');
                 
                 // Reset button
                 startVideoBtn.disabled = false;
@@ -1245,7 +1255,7 @@
 
         // Show Notification
         function showNotification(message, type = 'info') {
-            elements.notificationText.textContent = message;
+            elements.notificationText.innerHTML = message;
             
             // Set notification color based on type
             const notificationDiv = elements.notification.querySelector('div');
@@ -1275,15 +1285,14 @@
 
         // Update Balance Display
         function updateBalance() {
-            elements.balanceAmount.textContent = `${appData.balance} coins`;
-            elements.userId.textContent = appData.userId;
+            elements.balanceAmount.innerHTML = `<span class="taka-symbol text-3xl">৳</span> ${appData.balance}`;
             
             // Update other balance displays if they exist
             if (elements.depositBalance) {
-                elements.depositBalance.textContent = `${appData.balance} coins`;
+                elements.depositBalance.innerHTML = `<span class="taka-symbol text-2xl">৳</span> ${appData.balance}`;
             }
             if (elements.withdrawBalance) {
-                elements.withdrawBalance.textContent = `${appData.balance} coins`;
+                elements.withdrawBalance.innerHTML = `<span class="taka-symbol text-2xl">৳</span> ${appData.balance}`;
             }
         }
 
@@ -1297,27 +1306,15 @@
 
         // Toggle Theme
         function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            const icon = themeToggle.querySelector('i');
+            const isDark = document.body.classList.toggle('dark');
             
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                body.classList.add('light');
-                icon.className = 'fas fa-moon';
-                themeToggle.title = 'Switch to dark mode';
-            } else {
-                body.classList.remove('light');
-                body.classList.add('dark');
-                icon.className = 'fas fa-sun';
-                themeToggle.title = 'Switch to light mode';
-            }
+            // Save theme preference
+            localStorage.setItem('dailyEarningTheme', isDark ? 'dark' : 'light');
             
-            // Toggle dark mode classes
-            body.classList.toggle('bg-gray-900');
-            body.classList.toggle('text-white');
+            // Update icon
+            updateThemeIcon(isDark);
             
-            showNotification('Theme changed successfully!', 'info');
+            showNotification(`Switched to ${isDark ? 'dark' : 'light'} mode`, 'info');
         }
 
         // Refresh App
